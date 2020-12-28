@@ -1,0 +1,26 @@
+
+# Created by https://www.toptal.com/developers/gitignore/api/powershell
+# Edit at https://www.toptal.com/developers/gitignore?templates=powershell
+
+# Exclude packaged node modules
+node_modules
+package-lock.json 
+
+### PowerShell ###
+# Exclude packaged modules
+*.zip
+
+# Exclude .NET assemblies from source
+*.dll
+jq-linux64*
+
+# setting
+_config
+
+# temp. 
+*.swp 
+*.log
+slics/*
+drafts/*
+
+# End of https://www.toptal.com/developers/gitignore/api/powershell
