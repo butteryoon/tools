@@ -10,10 +10,10 @@
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     StartDate=`date -d '8 day ago' +%Y%m%d`
-    EndDate=`date -d '1 day ago' +%Y%m%d` 
+    EndDate=`date -d '0 day ago' +%Y%m%d` 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     StartDate=`date -v -8d +%Y%m%d`
-    EndDate=`date -v -1d +%Y%m%d` 
+    EndDate=`date -v -0d +%Y%m%d` 
 else
     echo "Uknown OSTYPE : $OSTYPE"
     exit
@@ -32,7 +32,7 @@ SLACK_SERVER_GENERAL=""
 # get contents
 #
 getContent() {
-	curl ${COVID_OPENAPI_URL}\?serviceKey\=${COVID_SERVICE_KEY}\&pageNo\=1\&numOfRows\=10\&startCreateDt\=${StartDate}\&endCreateDt\=${EndData} | xmllint --format - > ~/log/output.xml
+	curl ${COVID_OPENAPI_URL}\?serviceKey\=${COVID_SERVICE_KEY}\&pageNo\=1\&numOfRows\=10\&startCreateDt\=${StartDate}\&endCreateDt\=${EndDate} | xmllint --format - > ~/log/output.xml
 }
 
 # Check Date
@@ -47,7 +47,7 @@ checkDate() {
     fi
 
 
-	RESULT=`grep ${DATESTR} ~/log/output.xml -c`
+	RESULT=`grep "createDt>${DATESTR}" ~/log/output.xml -c`
 
 	if [ $RESULT -eq 1 ];then
 		return 200
