@@ -1,16 +1,22 @@
 #!/bin/bash
 
 DUCKDNS_TOKEN=''
-SLACK_TOKEN_BUTTERYOON=''
+SLACK_SERVER_BUTTERYOON=''
 
 . ~/_config
 
 # duckdns.org
-echo url="https://www.duckdns.org/update?domains=softroom.duckdns.org&token=${DUCKDNS_TOKEN}&ip=" | curl -k -o ~/log/check_public.sh.log -K -
+echo url="https://www.duckdns.org/update?domains=butteryoon.duckdns.org&token=${DUCKDNS_TOKEN}&ip=" | curl -k -o ~/log/check_public.sh.log -K -
 
 # ipify.org
 curIPAddress=`curl 'https://api.ipify.org?format=text'`
-lastIPAddress=`cat ~/log/publicIPAddress.dat`
+
+if [ -f ~/log/publicIPAddress.dat ];then
+	lastIPAddress=`cat ~/log/publicIPAddress.dat`
+else
+	echo '0.0.0.0' > ~/log/publicIPAddress.dat
+	lastIPAddress=`cat ~/log/publicIPAddress.dat`
+fi
 
 echo $curIPAddress $lastIPAddress
 
@@ -19,8 +25,8 @@ if [ $curIPAddress != $lastIPAddress ];then
 
     # slack post
     curl -H "Content-Type: application/json" \
-        --location --request POST ${SLACK_TOKEN_BUTTERYOON} \
-        --data-raw "$(printf '{
+        --location --request POST ${SLACK_SERVER_BUTTERYOON} \
+        -d "$(printf '{
             "text": "Information public IP Address.",
             "blocks": [
                 {
