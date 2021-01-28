@@ -6,7 +6,7 @@ SLACK_SERVER_BUTTERYOON=''
 . ~/_config
 
 # duckdns.org
-echo url="https://www.duckdns.org/update?domains=butteryoon.duckdns.org&token=${DUCKDNS_TOKEN}&ip=" | curl -k -o ~/log/check_public.sh.log -K -
+echo url="https://www.duckdns.org/update?domains=examples.duckdns.org&token=${DUCKDNS_TOKEN}&ip=" | curl -k -o ~/log/check_public.sh.log -K -
 
 # ipify.org
 curIPAddress=`curl 'https://api.ipify.org?format=text'`
